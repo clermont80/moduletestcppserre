@@ -4,17 +4,17 @@ class VerifSeuil
 	private:
 		
 		
-		float TempInt;
-		float TempExt;
-		int Hygro;
-		int HumiSol = 49;
-		float SeuilTempInt;
-		float SeuilTempExt;
-		int SeuilHygro;
-		int SeuilHumiSol;
-		int Plageheure;
-		int Plageminute;
-		int Plageseconde;
+		float TempInt = 20;
+		float TempExt = 18;
+		int Hygro = 60; //60%
+		int HumiSol = 49; //49%
+		float SeuilTempInt = 25;
+		float SeuilTempExt = 30;
+		int SeuilHygro = 85;
+		int SeuilHumiSol = 55;
+		int Plageheure = 16;
+		int Plageminute = 30;
+		
 
 	public:
 	
@@ -27,7 +27,7 @@ class VerifSeuil
 		void SetTempInt(float SeuilTempInt);
 		void SetTempExt(float SeuilTempExt);
 		void SetHumiSol(int SeuilHumiSol);
-		void SetPlage(int heure,int minute,int seconde);
+		void SetPlage(int heure,int minute);
 		bool AllumeVasistas();
 		bool AllumeBrumi();
 		bool AllumeChauffage();

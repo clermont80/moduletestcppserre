@@ -1,5 +1,8 @@
 #include "VerifSeuil.h"
 #include <ctime>
+#include <iostream>
+
+using namespace std;
 
 float VerifSeuil::Get_TempInt()
 {
@@ -23,11 +26,11 @@ int VerifSeuil::Get_HumiSol()
 
 int VerifSeuil::Get_PlageHoraire()
 {
-	int horaire[3];
+	int horaire[2];
 	
 	horaire[0] = this->Plageheure; //indice 0 pour heure
 	horaire[1] = this->Plageminute; //indice 1 pour minute
-	horaire[2] = this->Plageseconde; //indice 2 pour seconde
+
 
 	return horaire[0];
 
@@ -37,6 +40,7 @@ bool VerifSeuil::AllumeVasistas()
 {
 	if (this->Hygro >= 85 && this->TempExt >= 10 || this->TempExt >= this->TempInt && this->TempInt <= 10 || this->TempInt >= 25)
 	{
+		cout << "ouverture du vasistas..." << endl;
 		return true;
 	}
 
@@ -47,6 +51,7 @@ bool VerifSeuil::AllumeBrumi()
 {
 	if (this->TempInt >= 25 || this->Hygro <= 50 && this->TempInt >= 5)
 	{
+		cout << "lancement de la brumisation..." << endl;
 		return true;
 	}
 
@@ -57,6 +62,7 @@ bool VerifSeuil::AllumeChauffage()
 {
 	if (this->TempInt <= 1)
 	{
+		cout << "lancement du chauffage..." << endl;
 		return true;
 	}
 		
@@ -70,9 +76,21 @@ bool VerifSeuil::AllumeArrosage()
 	time_t dateheureactuelle = time(NULL);
 	localtime_s(&newtime, &dateheureactuelle); //on recupere l'heure et la date actuelle
 	int heure = newtime.tm_hour;
+	int minute = newtime.tm_min;
 
-	if (this->HumiSol < 50 && heure >= 17 || heure <= 11)
+	if (this->HumiSol < this->SeuilHumiSol && heure >= this->Plageheure  || heure <= this->Plageheure)
 	{
+		if (heure == this->Plageheure && minute < this->Plageminute)
+		{
+			return false;
+		}
+
+		if (heure == this->Plageheure && minute > this->Plageminute)
+		{
+			return false;
+		}
+		cout << "lancement de l'arrosage..." << endl;
+		
 		return true;
 	}
 		return false;
@@ -88,9 +106,19 @@ void VerifSeuil::SetHygro(int SeuilHygro)
 	this->SeuilHygro = SeuilHygro;
 }
 
-void VerifSeuil::SetPlage(int heure, int minute, int seconde)
+void VerifSeuil::SetPlage(int heure, int minute)
 {
 	this->Plageheure = heure;
 	this->Plageminute = minute;
-	this->Plageseconde = seconde;
+	
+}
+
+void VerifSeuil::SetTempExt(float SeuilTempExt)
+{
+	this->SeuilTempExt = SeuilTempExt;
+}
+
+void VerifSeuil::SetTempInt(float SeuilTempInt)
+{
+	this->SeuilTempInt = SeuilTempInt;
 }
