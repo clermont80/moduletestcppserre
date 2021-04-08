@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	int *horaire;
+	int* horairerecup;
 	VerifSeuil* Verif;
 	Verif = new VerifSeuil;
 	Verif->SetHumiSol(40);
@@ -18,13 +18,11 @@ int main(int argc, char *argv[])
 	Verif->SetPlage(15,31);
 	Verif->SetTempExt(28);
 	Verif->SetTempInt(26);
-	horaire = Verif->Get_PlageHoraire;
+	horairerecup = Verif->Get_PlageHoraire();
+	
 
-	for (int i = 0; i < 2; i++)
-	{
-		cout << horaire[i] << endl;
-	}
-
+	cout << "la plage horaire est de " <<horairerecup[0] << " heure et " <<horairerecup[1]<<" minutes"<<endl;
+	
 	bool res = Verif->AllumeArrosage();
 
 	if (res == true)

@@ -24,15 +24,15 @@ int VerifSeuil::Get_HumiSol()
 	return this->SeuilHumiSol;
 }
 
-int VerifSeuil::Get_PlageHoraire()
+int* VerifSeuil::Get_PlageHoraire()
 {
-	int horaire[2];
-	
+
 	horaire[0] = this->Plageheure; //indice 0 pour heure
 	horaire[1] = this->Plageminute; //indice 1 pour minute
+	
+	int* ptr_horaire = this->horaire;
 
-
-	return horaire[0];
+	return ptr_horaire; //retour bateau car probleme avec les pointeurs
 
 }
 

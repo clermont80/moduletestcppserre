@@ -14,6 +14,7 @@ class VerifSeuil
 		int SeuilHumiSol = 55;
 		int Plageheure = 16;
 		int Plageminute = 30;
+		int horaire[2];
 		
 
 	public:
@@ -22,7 +23,7 @@ class VerifSeuil
 		float Get_TempExt();
 		int Get_Hygro();
 		int Get_HumiSol();
-		int Get_PlageHoraire();
+		int* Get_PlageHoraire();
 		void SetHygro(int SeuilHygro);
 		void SetTempInt(float SeuilTempInt);
 		void SetTempExt(float SeuilTempExt);
