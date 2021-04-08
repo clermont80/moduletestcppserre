@@ -43,7 +43,7 @@ bool VerifSeuil::AllumeVasistas()
 		cout << "ouverture du vasistas..." << endl;
 		return true;
 	}
-
+		cout << "les conditions ne sont pas respectees pour ouvrir le vasistas..." << endl;
 		return false;
 }
 
@@ -54,7 +54,7 @@ bool VerifSeuil::AllumeBrumi()
 		cout << "lancement de la brumisation..." << endl;
 		return true;
 	}
-
+		cout << "les conditions ne sont pas respectees pour declencher la brumisation..." << endl;
 		return false;
 }
 
@@ -65,7 +65,7 @@ bool VerifSeuil::AllumeChauffage()
 		cout << "lancement du chauffage..." << endl;
 		return true;
 	}
-		
+		cout << "les conditions ne sont pas respectees pour declencher le chauffage..." << endl;
 		return false;
 }
 
@@ -82,17 +82,19 @@ bool VerifSeuil::AllumeArrosage()
 	{
 		if (heure == this->Plageheure && minute < this->Plageminute)
 		{
+			cout << "les conditions ne sont pas respectees pour declencher l'arrosage..." << endl;
 			return false;
 		}
 
 		if (heure == this->Plageheure && minute > this->Plageminute)
 		{
+			cout << "les conditions ne sont pas respectees pour declencher l'arrosage..." << endl;
 			return false;
 		}
 		cout << "lancement de l'arrosage..." << endl;
-		
 		return true;
 	}
+		cout << "les conditions ne sont pas respectees pour declencher l'arrosage..." << endl;
 		return false;
 }
 
