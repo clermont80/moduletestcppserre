@@ -1,5 +1,6 @@
 
 #include "VerifSeuil.h"
+#include "Serveurcpp.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,7 +26,14 @@ int main(int argc, char *argv[])
 	Verif->AllumeBrumi();
 	Verif->AllumeChauffage();
 	Verif->AllumeVasistas();
-	
+
+	Serveurcpp* serveur;
+	serveur = new Serveurcpp();
+	serveur->createsocket();
+	serveur->connect();
+	serveur->receiv();
+	//serveur->readbuffer();
+
 	
 	system("PAUSE");
 	return 0;
