@@ -88,31 +88,42 @@ void Serveurcpp::receiv()
 	 
 	i = strlen(buffer);
 
-	if (buffer[i-1] == ';') //le message se termine bien par ;
+
+	if (buffer[i - 1] == ';') //le message se termine bien par ;
 	{
 		findetrame = true;
 	}
 
-	
 
-	if(findetrame==true)
-	{ 
-		if (strlen(buffer) == 5 && buffer[0] == 't' && buffer[1] == 'e' && buffer[2] == 's' && buffer[3] == 't' && buffer[4] == ';')
+
+		if (findetrame == true)
 		{
-			send(socketclient, "c'est un envoi test",19,0);
+			if (strlen(buffer) == 5 && buffer[0] == 't' && buffer[1] == 'e' && buffer[2] == 's' && buffer[3] == 't' && buffer[4] == ';')
+			{
+				send(socketclient, "c'est un envoi test", 19, 0);
+				send(socketclient, "\n", 2, 0);
+				send(socketclient, "arret de la connexion", 21, 0);
+				closesocket(socketclient);
+			}
+			else
+			{
+				send(socketclient, "mauvaise commande", 17, 0);
+				send(socketclient, "\n", 2, 0);
+				send(socketclient, "arret de la connexion", 21, 0);
+				closesocket(socketclient);
+			}
 		}
 		else
 		{
-			send(socketclient, "mauvaise commande", 17, 0);
+			send(socketclient, "mauvaise commande, pas de caractere de fin de trame", 51, 0);
+			send(socketclient, "\n", 2, 0);
+			send(socketclient, "arret de la connexion", 21, 0);
+			closesocket(socketclient);
 		}
-	}
-	else
-	{
-		send(socketclient, "mauvaise commande, pas de caractere de fin de trame", 51, 0);
-	}
-	
-		
 }
+
+		
+
 
 void Serveurcpp::readbuffer()
 {
