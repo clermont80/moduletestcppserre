@@ -33,6 +33,7 @@ class VerifSeuil
 		bool AllumeBrumi();
 		bool AllumeChauffage();
 		bool AllumeArrosage();
+		bool GetMailAlert();
 
 };
 

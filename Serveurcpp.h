@@ -13,7 +13,6 @@ class Serveurcpp
 
 	public:
 
-		void ConnectWebSock();
 		void createsocket();
 		void connect();
 		void receiv();
