@@ -142,25 +142,24 @@ bool VerifSeuil::GetMailAlert()
 	SMTPMail *mail;
 
 	mail = new SMTPMail();
-	//try { 
+
+	try 
+	{ 
 		mail->open("smtp.gmail.com", "465", SMTP_SECURITY_NONE, SMTP_DEBUG, NULL);
 		mail->auth(SMTP_AUTH_NONE, NULL, NULL);
-		mail->address_add(SMTP_ADDRESS_FROM,
-			"clermont.mailpro@gmail.com",
-			"From Address");
-		mail->address_add(SMTP_ADDRESS_TO,
-			"clermont.mailpro@gmail.com",
-			"To Address");
-		mail->header_add("Message test", "Test email (SMTPMail)");
-		mail->mail("Email sent using CPP SMTPMail class");
+		mail->address_add(SMTP_ADDRESS_FROM,"clermont.mailpro@gmail.com","From Address");
+		mail->address_add(SMTP_ADDRESS_TO,"clermont.mailpro@gmail.com","To Address");
+		//mail->header_add("Message test", "Test email (SMTPMail)"); //probleme here
+		mail->mail("Email sent using CPP SMTPMail class"); //probleme here
 		mail->close();
-/*
+
 	}
 	catch (SMTPMailException sme) 
 	{
-		errx(1, "Failed to send email: %s\n", sme.what());//printf("erreur d'envoi \n");
+		//errx(1, "Failed to send email: %s\n", sme.what());//printf("erreur d'envoi \n");
+		cout << sme.what() << endl;
 	}
-*/
+
 	delete mail;
 
 	return true;
