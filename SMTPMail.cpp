@@ -46,7 +46,8 @@ void SMTPMail::auth(enum smtp_authentication_method auth_method,
   this->throw_bad_status_code();
 }
 
-void SMTPMail::mail(const char *const body){
+void SMTPMail::mail(const char *const body)
+{
   this->rc = smtp_mail(this->smtp, body);
   this->throw_bad_status_code();
 }

@@ -13,7 +13,7 @@ class VerifSeuil
 		int SeuilHygro = 85;
 		int SeuilHumiSol = 55;
 		int Plageheure = 16;
-		int Plageminute = 30;
+		int Plageminute = 31;
 		int horaire[2];
 		
 

@@ -35,14 +35,14 @@ int main(int argc, char *argv[])
 	Verif->AllumeChauffage();
 	Verif->AllumeVasistas();
 	Verif->GetMailAlert();
-/*
+
 	Serveurcpp* serveur;
 	serveur = new Serveurcpp();
 	serveur->createsocket();
 	serveur->connect();
 	serveur->receiv();
 	//serveur->readbuffer();
-*/
+
 	
 	system("PAUSE");
 	return 0;

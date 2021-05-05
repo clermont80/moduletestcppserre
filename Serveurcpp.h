@@ -4,7 +4,7 @@ class Serveurcpp
 {
 	private:
 
-		int port = 2135;
+		int port = 2590;
 		std::string ip = "127.0.0.1";
 		int sock;
 		int socketclient;

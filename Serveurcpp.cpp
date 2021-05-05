@@ -40,7 +40,7 @@ void Serveurcpp::connect()
 
 	sin.sin_family = AF_INET;
 
-	sin.sin_port = htons(2590);
+	sin.sin_port = htons(port);
 
 	if (bind(sock, (SOCKADDR *)&sin, sizeof sin) == SOCKET_ERROR)
 	{
@@ -107,15 +107,22 @@ void Serveurcpp::receiv()
 			}
 			else
 			{
-				send(socketclient, "mauvaise commande", 17, 0);
+				send(socketclient, "bonne commande mais pas de caractere de fin de trame", 52, 0);
 				send(socketclient, "\n", 2, 0);
 				send(socketclient, "arret de la connexion", 21, 0);
 				closesocket(socketclient);
 			}
 		}
+		else if(strlen(buffer) == 4 && buffer[0] == 't' && buffer[1] == 'e' && buffer[2] == 's' && buffer[3] == 't')
+		{
+			send(socketclient, "pas de caractere de fin de trame", 51, 0);
+			send(socketclient, "\n", 2, 0);
+			send(socketclient, "arret de la connexion", 21, 0);
+			closesocket(socketclient);
+		}
 		else
 		{
-			send(socketclient, "mauvaise commande, pas de caractere de fin de trame", 51, 0);
+			send(socketclient, "mauvaise commande", 17, 0);
 			send(socketclient, "\n", 2, 0);
 			send(socketclient, "arret de la connexion", 21, 0);
 			closesocket(socketclient);

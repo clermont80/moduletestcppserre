@@ -34,9 +34,9 @@ int* VerifSeuil::Get_PlageHoraire()
 	horaire[0] = this->Plageheure; //indice 0 pour heure
 	horaire[1] = this->Plageminute; //indice 1 pour minute
 	
-	int* ptr_horaire = this->horaire;
+	
 
-	return ptr_horaire; //retour bateau car probleme avec les pointeurs
+	return horaire; //probleme de valeur
 
 }
 
@@ -81,6 +81,8 @@ bool VerifSeuil::AllumeArrosage()
 	localtime_s(&newtime, &dateheureactuelle); //on recupere l'heure et la date actuelle
 	int heure = newtime.tm_hour;
 	int minute = newtime.tm_min;
+
+	cout << "il est actuellement " << heure << " h " << minute << endl;
 
 	if (this->HumiSol < this->SeuilHumiSol && heure >= this->Plageheure  || heure <= this->Plageheure)
 	{
