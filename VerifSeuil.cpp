@@ -2,7 +2,8 @@
 #include <ctime>
 #include "SMTPMail.h"
 #include <iostream>
-//#include <err.h>
+#include "smtp.h"
+#include <stdlib.h>
 #include <WS2tcpip.h>
 #pragma comment (lib,"ws2_32.lib")
 
@@ -131,38 +132,50 @@ void VerifSeuil::SetTempInt(float SeuilTempInt)
 	this->SeuilTempInt = SeuilTempInt;
 }
 
-bool VerifSeuil::GetMailAlert()
+bool VerifSeuil::GetMailAlert(int TempInttest, int Hygrotest, int HumiSoltest)
 {
-	/*if (TempInttest >= 30 || Hygrotest >= 90 || TempInttest <= -5 || Hygrotest <= 36 || HumiSoltest <= 40 || HumiSoltest >= 67) //on envoie une alerte au serveur node car les valeurs mettent en péril la serre
+	if (TempInttest >= 30 || Hygrotest >= 90 || TempInttest <= -5 || Hygrotest <= 36 || HumiSoltest <= 40 || HumiSoltest >= 67) //on envoie une alerte au serveur node car les valeurs mettent en péril la serre
 	{
-		
+		struct smtp *smtp;
+		int rc;
+		rc = smtp_open("mail.la-providence.net",
+			"25",
+			SMTP_SECURITY_NONE,
+			SMTP_NO_CERT_VERIFY,
+			NULL,
+			&smtp);
+		rc = smtp_auth(smtp,
+			SMTP_AUTH_NONE,
+			NULL,
+			NULL);
+		rc = smtp_address_add(smtp,
+			SMTP_ADDRESS_FROM,
+			"BTSSN2-Projetserre",
+			"Serre");
+		rc = smtp_address_add(smtp,
+			SMTP_ADDRESS_TO,
+			"mclermont@la-providence.net",
+			"Administration de la serre");
+		rc = smtp_header_add(smtp,
+			"Subject",
+			"Alerte");
 
+		rc = smtp_mail(smtp,
+			"probleme de seuil dans la serre,veuillez intervenir");
+		rc = smtp_close(smtp);
+		if (rc != SMTP_STATUS_OK) {
+			printf("probleme %s\n", smtp_status_code_errstr((smtp_status_code)rc));
+			return 1;
+		}
 	}
-
-	*/
-
-	SMTPMail *mail;
-
-	mail = new SMTPMail();
-
-	try 
-	{ 
-		mail->open("smtp.gmail.com", "465", SMTP_SECURITY_NONE, SMTP_DEBUG, NULL);
-		mail->auth(SMTP_AUTH_NONE, NULL, NULL);
-		mail->address_add(SMTP_ADDRESS_FROM,"clermont.mailpro@gmail.com","From Address");
-		mail->address_add(SMTP_ADDRESS_TO,"clermont.mailpro@gmail.com","To Address");
-		//mail->header_add("Message test", "Test email (SMTPMail)"); //probleme here
-		mail->mail("Email sent using CPP SMTPMail class"); //probleme here
-		mail->close();
-
-	}
-	catch (SMTPMailException sme) 
+	else
 	{
-		//errx(1, "Failed to send email: %s\n", sme.what());//printf("erreur d'envoi \n");
-		cout << sme.what() << endl;
+		cout << "conditions non remplis pour alerter l'utilisateur" << endl;
 	}
 
-	delete mail;
+	
+
+	
 
 	return true;
 }

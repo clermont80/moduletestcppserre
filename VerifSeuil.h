@@ -33,7 +33,7 @@ class VerifSeuil
 		bool AllumeBrumi();
 		bool AllumeChauffage();
 		bool AllumeArrosage();
-		bool GetMailAlert();
+		bool GetMailAlert(int TempInttest, int Hygrotest, int HumiSoltest);
 
 };
 

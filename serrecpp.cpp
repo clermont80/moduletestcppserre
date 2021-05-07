@@ -4,7 +4,10 @@
 #include "ES.h"
 #include <iostream>
 #include <stdio.h>
+#include "smtp.h"
 #include <stdlib.h>
+#pragma comment (lib,"ws2_32.lib")
+#define CTR_SECURE_NO_WARNINGS
 using namespace std;
 
 
@@ -34,7 +37,9 @@ int main(int argc, char *argv[])
 	Verif->AllumeBrumi();
 	Verif->AllumeChauffage();
 	Verif->AllumeVasistas();
-	Verif->GetMailAlert();
+	Verif->GetMailAlert(-5, 100, 30);
+	
+
 
 	Serveurcpp* serveur;
 	serveur = new Serveurcpp();
