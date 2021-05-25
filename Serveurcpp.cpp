@@ -17,8 +17,19 @@ void Serveurcpp::createsocket()
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 2), &wsaData);
 
-	int sock1 = socket(AF_INET, SOCK_STREAM, 0);
+	
 
+	try
+	{
+		int sock1 = socket(AF_INET, SOCK_STREAM, 0);
+		sock = sock1;
+		cout << "socket valide" << endl;
+	}
+	catch(ErreurCreation)
+	{
+		cout << "erreur de creation" << endl;
+	}
+/*
 	if (sock1 == INVALID_SOCKET)
 	{
 		cout << "erreur de creation" << endl;
@@ -28,7 +39,7 @@ void Serveurcpp::createsocket()
 		sock = sock1;
 		cout<<"socket valide"<<endl;
 	}
-
+*/
 #endif
 }
 
@@ -41,7 +52,7 @@ void Serveurcpp::connect()
 	sin.sin_family = AF_INET;
 
 	sin.sin_port = htons(port);
-
+/*
 	if (bind(sock, (SOCKADDR *)&sin, sizeof sin) == SOCKET_ERROR)
 	{
 		cout << "erreur de bind" << endl;
@@ -51,24 +62,46 @@ void Serveurcpp::connect()
 	{
 		cout << "erreur d'ecoute" << endl;
 	}
+*/
 
+	try
+	{
+		bind(sock, (SOCKADDR *)&sin, sizeof sin);
+		listen(sock, 5);
+	}
+	catch(Erreurbind)
+	{
+		cout << "erreur de bind ou de listen, verifiez le port" << endl;
+	}
 
 	SOCKADDR_IN csin = { 0 };
 	SOCKET csock;
 
 	int sinsize = sizeof csin;
 
-	csock = accept(sock, (SOCKADDR *)&csin, &sinsize);
+	try
+	{
+		csock = accept(sock, (SOCKADDR *)&csin, &sinsize);
+		socketclient = csock;
+		printf("csock valide\n");
 
-	if (csock == INVALID_SOCKET)
+	}
+	catch (Erreuraccept)
 	{
 		cout << "socket erreur" << endl;
 	}
+	
+/*
+	if (csock == INVALID_SOCKET)
+	{
+		
+	}
 	else
 	{
-		socketclient = csock;
-		printf("csock valide\n");
+		
 	}
+
+*/
 }
 
 void Serveurcpp::receiv()
@@ -81,7 +114,7 @@ void Serveurcpp::receiv()
 	
 	
 	recvsock = recv(socketclient, buffer, taille-1, 0);
-	//recvLen += recvsock; 
+	
 
 
 	buffer[taille] = 0x00;

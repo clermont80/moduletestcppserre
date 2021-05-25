@@ -1,11 +1,15 @@
 #pragma once
 #include <string>
+class Erreuraccept{};
+class ErreurCreation{};
+class Erreurbind{};
+
 class Serveurcpp
 {
 	private:
 
 		int port = 2590;
-		std::string ip = "127.0.0.1";
+		std::string ip = "192.168.1.41";
 		int sock;
 		int socketclient;
 		char buffer[10];

@@ -133,9 +133,10 @@ void VerifSeuil::SetTempInt(float SeuilTempInt)
 }
 
 bool VerifSeuil::GetMailAlert(int TempInttest, int Hygrotest, int HumiSoltest)
-{
+{/*
 	if (TempInttest >= 30 || Hygrotest >= 90 || TempInttest <= -5 || Hygrotest <= 36 || HumiSoltest <= 40 || HumiSoltest >= 67) //on envoie une alerte au serveur node car les valeurs mettent en péril la serre
 	{
+	*/
 		struct smtp *smtp;
 		int rc;
 		rc = smtp_open("mail.la-providence.net",
@@ -160,6 +161,11 @@ bool VerifSeuil::GetMailAlert(int TempInttest, int Hygrotest, int HumiSoltest)
 			"Subject",
 			"Alerte");
 
+		/* rc = smtp_attachment_add_mem(smtp,
+			"test.txt",
+			"Test email attachment.",
+			-1); */
+
 		rc = smtp_mail(smtp,
 			"probleme de seuil dans la serre,veuillez intervenir");
 		rc = smtp_close(smtp);
@@ -167,12 +173,13 @@ bool VerifSeuil::GetMailAlert(int TempInttest, int Hygrotest, int HumiSoltest)
 			printf("probleme %s\n", smtp_status_code_errstr((smtp_status_code)rc));
 			return 1;
 		}
+/*
 	}
 	else
 	{
-		cout << "conditions non remplis pour alerter l'utilisateur" << endl;
+		cout << "conditions non remplies pour alerter l'utilisateur" << endl;
 	}
-
+*/
 	
 
 	
